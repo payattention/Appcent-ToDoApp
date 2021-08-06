@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ToDoApp.ApiContract.Contracts
+
+namespace ToDoApp.ApiContract.Request.Command
 {
-    public class RegisterDto
+    public class RegisterCommand
     {
         [Required]
         public string UserName { get; set; }
@@ -19,6 +15,7 @@ namespace ToDoApp.ApiContract.Contracts
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-       
+
     }
+}
 }
