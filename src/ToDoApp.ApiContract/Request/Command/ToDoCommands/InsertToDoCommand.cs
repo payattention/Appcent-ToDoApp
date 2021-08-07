@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
 using ToDoApp.ApiContract.Contracts;
+using ToDoApp.ApiContract.Response.Command;
 
 namespace ToDoApp.ApiContract.Request.Command.ToDoCommands
 {
-    public class InsertToDoCommand
+    public class InsertToDoCommand : IRequest<ResponseBase<InsertToDoCommandResult>>
     {
         [Required]
         public string Name { get; set; }

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDoApp.ApiContract.Request.Command.SectionCommands
 {
-    public class AddSectionToDoCommand
+    public class InsertSectionToDoCommand : IRequest
     {
         [Required]
         public string SectionName { get; set; }
