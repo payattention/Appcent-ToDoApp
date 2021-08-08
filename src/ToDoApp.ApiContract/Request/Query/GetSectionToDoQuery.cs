@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
+using ToDoApp.ApiContract.Contracts;
+using ToDoApp.ApiContract.Response.Query;
 
 namespace ToDoApp.ApiContract.Request.Query
 {
-    public class GetSectionToDoQuery
+    public class GetSectionToDoQuery : IRequest<ResponseBase<GetSectionToDoQueryResult>>
     {
         [Required]
         public string UserName { get; set; }
-        [Required]
-        public int TaskId { get; set; }
+
     }
 }

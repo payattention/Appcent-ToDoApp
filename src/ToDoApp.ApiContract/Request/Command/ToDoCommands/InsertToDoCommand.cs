@@ -8,12 +8,11 @@ namespace ToDoApp.ApiContract.Request.Command.ToDoCommands
     public class InsertToDoCommand : IRequest<ResponseBase<InsertToDoCommandResult>>
     {
         [Required]
-        public string Name { get; set; }
+        public string ToDo { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
-        public int SectionId { get; set; }
-        public int MainTaskId { get; set; }
+        public string SectionName { get; set; }
         public ToDoState ToDoState { get; set; }
         public ToDoPrimacy ToDoPrimacy { get; set; }
         

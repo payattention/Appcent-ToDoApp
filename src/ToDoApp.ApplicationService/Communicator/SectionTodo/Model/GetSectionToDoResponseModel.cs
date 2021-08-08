@@ -7,8 +7,8 @@ using ToDoApp.ApiContract.Contracts;
 
 namespace ToDoApp.ApplicationService.Communicator.SectionTodo.Model
 {
-    public class InsertSectionToDoResponseModel : ResponseBase
+    public class GetSectionToDoResponseModel : ResponseBase
     {
-       
+        public IEnumerable<SectionModel> SectionNames { get; set; }
     }
 }

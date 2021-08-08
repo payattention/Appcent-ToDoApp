@@ -23,9 +23,8 @@ namespace ToDoApp.ApplicationService.Handler.Command.ToDoHandler
         {
             var insertToDo = await _toDoCommunicator.InsertToDo(new InsertToDoRequestModel
             {
-                MainTaskId = request.MainTaskId,
-                Name = request.Name,
-                SectionId = request.SectionId,
+                ToDo = request.ToDo,
+                SectionName = request.SectionName,
                 ToDoPrimacy = (Communicator.ToDo.Model.ToDoPrimacy)request.ToDoPrimacy,
                 ToDoState = (Communicator.ToDo.Model.ToDoState)request.ToDoState,
                 UserName = request.UserName

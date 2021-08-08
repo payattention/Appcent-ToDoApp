@@ -15,23 +15,19 @@ namespace ToDoApp.ApplicationService.Handler.Command.SectionToDoHandler
 {
     public class InsertSectionToDoCommandHandler : IRequestHandler<InsertSectionToDoCommand, ResponseBase<InsertSectionToDoCommandResult>>
     {
-        private readonly ISectionToDoCommunicator _sectionToDoCommunicator;
+        private readonly ISectionToDoCommunicator _insertSectionToDoCommunicator;
 
 
         public InsertSectionToDoCommandHandler(ISectionToDoCommunicator sectionToDoCommunicator)
         {
-            _sectionToDoCommunicator = sectionToDoCommunicator;
+            _insertSectionToDoCommunicator = sectionToDoCommunicator;
 
         }
         public async Task<ResponseBase<InsertSectionToDoCommandResult>> Handle(InsertSectionToDoCommand request, CancellationToken cancellationToken)
         {
-            var insertToDo = await _sectionToDoCommunicator.InsertToDo(new InsertSectionToDoRequestModel
+            var insertToDo = await _insertSectionToDoCommunicator.InsertSection(new InsertSectionToDoRequestModel
             {
-                MainTaskId = request.MainTaskId,
-                Name = request.Name,
-                SectionId = request.SectionId,
-                ToDoPrimacy = (Communicator.ToDo.Model.ToDoPrimacy)request.ToDoPrimacy,
-                ToDoState = (Communicator.ToDo.Model.ToDoState)request.ToDoState,
+                SectionName = request.SectionName,
                 UserName = request.UserName
             });
 

@@ -26,9 +26,8 @@ namespace ToDoApp.ApplicationService.Communicator.ToDo
             //Going to Repo
             var InsertToDoResponse = await _toDoCouchbaseInstruction.Insert(new InsertToDoReqEntityModel()
             {
-                MainTaskId = request.MainTaskId,
-                Name = request.Name,
-                SectionId = request.SectionId,
+                ToDo = request.ToDo,
+                SectionName = request.SectionName,
                 ToDoPrimacy = (Domain.BaseModels.ToDoPrimacy)request.ToDoPrimacy,
                 ToDoState = (Domain.BaseModels.ToDoState)request.ToDoState,
                 UserName = request.UserName

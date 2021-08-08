@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CouchbaseNetClient" Version="2.7.26" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ToDoApp.ApiContract\ToDoApp.ApiContract.csproj" />
   </ItemGroup>
 

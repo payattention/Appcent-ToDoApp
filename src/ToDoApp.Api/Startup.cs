@@ -15,6 +15,7 @@ using MediatR;
 using ToDoApp.ApplicationService.Communicator.ToDo;
 using ToDoApp.Repository;
 using ToDoApp.ApiContract.Contracts;
+using ToDoApp.ApplicationService.Communicator.SectionTodo;
 
 namespace ToDoApp.Api
 {
@@ -57,7 +58,9 @@ namespace ToDoApp.Api
 
             services.AddScoped<IToDoCouchbaseInstruction, ToDoCouchbaseInstruction>();
             services.AddScoped<IToDoCommunicator, ToDoCommunicator>();
-            
+            services.AddScoped<ISectionToDoCouchbaseInstruction, SectionToDoCouchbaseInstruction>();
+            services.AddScoped<ISectionToDoCommunicator, SectionToDoCommunicator>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
