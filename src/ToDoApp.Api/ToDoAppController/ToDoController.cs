@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoApp.ApiContract.Contracts;
+using ToDoApp.ApiContract.Request.Command.SectionCommands;
 using ToDoApp.ApiContract.Request.Command.ToDoCommands;
 using ToDoApp.ApiContract.Response.Command;
 
 namespace ToDoApp.Api.ToDoAppController
 {
-    [Route("api/[controller]")]
+    [Route("toDo")]
     [ApiController]
     public class ToDoController : ControllerBase
     {
@@ -21,16 +22,18 @@ namespace ToDoApp.Api.ToDoAppController
             _mediator = mediator;
         }
 
-        [HttpPost("InsertToDo")]
-        [ProducesResponseType(200, Type = typeof(ResponseBase<InsertToDoCommandResult>))]
+        [HttpPost("insertToDo")]
         public async Task<IActionResult> InsertToDo(InsertToDoCommand request)
         {
-            var result = await _mediator.Send(new InsertToDoCommand
-            {
-               
-            });
+            var result = await _mediator.Send(request);
             return Ok(result);
+        }
 
+        [HttpPost("insertSectionToDo")]
+        public async Task<IActionResult> InsertSectionToDo(InsertSectionToDoCommand request)
+        {
+            var result = await _mediator.Send(request);
+            return Ok(result);
         }
 
     }

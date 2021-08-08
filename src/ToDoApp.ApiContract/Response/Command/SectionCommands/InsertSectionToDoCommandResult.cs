@@ -7,8 +7,7 @@ using ToDoApp.ApiContract.Contracts;
 
 namespace ToDoApp.ApiContract.Response.Command.SectionCommands
 {
-    public class AddSectionToDoCommandResult : ResponseBase
+    public class InsertSectionToDoCommandResult : ResponseBase
     {
-        public SectionModel Section { get; set; }
     }
 }

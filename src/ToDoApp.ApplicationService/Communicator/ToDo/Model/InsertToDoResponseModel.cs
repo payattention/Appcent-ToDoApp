@@ -9,6 +9,5 @@ namespace ToDoApp.ApplicationService.Communicator.ToDo.Model
 {
     public class InsertToDoResponseModel : ResponseBase
     {
-        public ToDoModel ToDo { get; set; }
     }
 }

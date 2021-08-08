@@ -23,21 +23,22 @@ namespace ToDoApp.ApplicationService.Communicator.ToDo
 
         public async Task<ResponseBase<InsertToDoResponseModel>> InsertToDo(InsertToDoRequestModel request)
         {
-            var response = new ResponseBase<InsertToDoResponseModel>();
+            //Going to Repo
+            var InsertToDoResponse = await _toDoCouchbaseInstruction.Insert(new InsertToDoReqEntityModel()
+            {
+                MainTaskId = request.MainTaskId,
+                Name = request.Name,
+                SectionId = request.SectionId,
+                ToDoPrimacy = (Domain.BaseModels.ToDoPrimacy)request.ToDoPrimacy,
+                ToDoState = (Domain.BaseModels.ToDoState)request.ToDoState,
+                UserName = request.UserName
+            });
 
-            //response = await _toDoCouchbaseInstruction.Insert(new InsertToDoReqEntityModel()
-            //{
-            //     MainTaskId = request.MainTaskId,
-            //     Name = request.Name,
-            //     SectionId = request.SectionId,
-            //     ToDoPrimacy = request.ToDoPrimacy,
-            //     ToDoState = request.ToDoState,
-            //     UserName = request.UserName
-            //});
+            return new ResponseBase<InsertToDoResponseModel>
+            {
+                Success = InsertToDoResponse.Success
+            };
 
-
-                return response;
-            
         }
     }
 }

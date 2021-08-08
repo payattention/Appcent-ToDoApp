@@ -1,12 +1,8 @@
-﻿using Couchbase;
-using Couchbase.Core;
+﻿using Couchbase.Core;
 using Couchbase.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ToDoApp.Domain.BaseModels;
+using ToDoApp.ApiContract.Contracts;
 using ToDoApp.Domain.ToDoAppModels;
 
 namespace ToDoApp.Repository
@@ -20,13 +16,16 @@ namespace ToDoApp.Repository
             _bucket = bucketProvider.GetBucket("ToDoApp"); // Confige atarsın sonra.
         }
 
-        public InsertToDoResEntityModel Insert(InsertToDoReqEntityModel request)
+        public async Task<ResponseBase<InsertToDoResEntityModel>> Insert(InsertToDoReqEntityModel request)
         {
-            var response = new InsertToDoResEntityModel();
+            var key = Guid.NewGuid().ToString();
 
+            var result =  await _bucket.InsertAsync(key, request);
 
-
-            return response;
+            return new ResponseBase<InsertToDoResEntityModel>
+            {
+                Success = result.Success
+            };
         }
 
         //public ToDoSection InsertSection()
