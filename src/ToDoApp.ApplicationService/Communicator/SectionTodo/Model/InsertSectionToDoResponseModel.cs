@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.ApiContract.Contracts;
 
-namespace ToDoApp.ApiContract.Response.Command.SectionCommands
+namespace ToDoApp.ApplicationService.Communicator.SectionTodo.Model
 {
-    public class AddSectionToDoCommandResult : ResponseBase
+    public class InsertSectionToDoResponseModel : ResponseBase
     {
-        public SectionModel Section { get; set; }
+       
     }
 }

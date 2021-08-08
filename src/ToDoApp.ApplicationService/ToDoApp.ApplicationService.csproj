@@ -4,4 +4,14 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ToDoApp.Repository\ToDoApp.Repository.csproj" />
+    <ProjectReference Include="..\ToDoApp.ApiContract\ToDoApp.ApiContract.csproj" />
+  </ItemGroup>
+
 </Project>

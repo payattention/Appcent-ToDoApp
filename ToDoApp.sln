@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{278E8C6B-826C-4CB1-A189-593F5E86790D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Api", "src\ToDoApp.Api\ToDoApp.Api.csproj", "{862830F7-09BD-4C57-AEB4-58E5B5371A29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Api", "src\ToDoApp.Api\ToDoApp.Api.csproj", "{862830F7-09BD-4C57-AEB4-58E5B5371A29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.ApiContract", "src\ToDoApp.ApiContract\ToDoApp.ApiContract.csproj", "{A4099D1B-C0D0-42A3-A7B9-ECE24A591D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.ApiContract", "src\ToDoApp.ApiContract\ToDoApp.ApiContract.csproj", "{A4099D1B-C0D0-42A3-A7B9-ECE24A591D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.ApplicationService", "src\ToDoApp.ApplicationService\ToDoApp.ApplicationService.csproj", "{51DF763C-E3A3-413B-8153-1E48E419DB09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.ApplicationService", "src\ToDoApp.ApplicationService\ToDoApp.ApplicationService.csproj", "{51DF763C-E3A3-413B-8153-1E48E419DB09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Domain", "src\ToDoApp.Domain\ToDoApp.Domain.csproj", "{197EBE58-9661-464E-90B4-3ABAB6543742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Domain", "src\ToDoApp.Domain\ToDoApp.Domain.csproj", "{197EBE58-9661-464E-90B4-3ABAB6543742}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{12C301C5-8A5A-4F90-BF7E-573F6B6AE047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Repository", "ToDoApp.Repository\ToDoApp.Repository.csproj", "{2497E17B-532E-40A8-8E75-59456B1738C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{197EBE58-9661-464E-90B4-3ABAB6543742}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{197EBE58-9661-464E-90B4-3ABAB6543742}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{197EBE58-9661-464E-90B4-3ABAB6543742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2497E17B-532E-40A8-8E75-59456B1738C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2497E17B-532E-40A8-8E75-59456B1738C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2497E17B-532E-40A8-8E75-59456B1738C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2497E17B-532E-40A8-8E75-59456B1738C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{A4099D1B-C0D0-42A3-A7B9-ECE24A591D87} = {278E8C6B-826C-4CB1-A189-593F5E86790D}
 		{51DF763C-E3A3-413B-8153-1E48E419DB09} = {278E8C6B-826C-4CB1-A189-593F5E86790D}
 		{197EBE58-9661-464E-90B4-3ABAB6543742} = {278E8C6B-826C-4CB1-A189-593F5E86790D}
+		{2497E17B-532E-40A8-8E75-59456B1738C8} = {278E8C6B-826C-4CB1-A189-593F5E86790D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44145AD2-CECF-460F-AC67-DF9197B24087}

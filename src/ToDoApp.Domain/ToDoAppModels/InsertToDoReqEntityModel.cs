@@ -1,15 +1,13 @@
-﻿
-using System;
+﻿using ToDoApp.Domain.BaseModels;
 
-namespace ToDoApp.ApiContract.Contracts
+namespace ToDoApp.Domain.ToDoAppModels
 {
-    public class ToDoModel
+    public class InsertToDoReqEntityModel
     {
         public string ToDo { get; set; }
+        public string UserName { get; set; }
         public string SectionName { get; set; }
-        public string Id { get; set; }
         public ToDoState ToDoState { get; set; }
         public ToDoPrimacy ToDoPrimacy { get; set; }
-        public DateTime CreateDate { get; set; }
     }
 }
