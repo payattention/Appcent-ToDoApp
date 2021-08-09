@@ -1,21 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
 using ToDoApp.ApiContract.Contracts;
+using ToDoApp.ApiContract.Response.Command;
 
 namespace ToDoApp.ApiContract.Request.Command.ToDoCommands
 {
-    public class UpdateToDoCommand
+    public class UpdateToDoCommand : IRequest<ResponseBase<UpdateToDoCommandResult>>
     {
         [Required]
-        public int TaskId { get; set; }
+        public string ToDoId { get; set; }
         [Required]
-        public string Name { get; set; }
-        [Required]
-        public int SectionId { get; set; }
-        public int MainTaskId { get; set; }
-        [Required]
+        public string UserName { get; set; }
+        public string ToDo { get; set; }   
         public ToDoState ToDoState { get; set; }
-        [Required]
-        public ToDoPrimacy ToDoPriority { get; set; }
-        
+        public ToDoPrimacy ToDoPrimacy { get; set; }
+
+        //[Required]
+        //public string SectionName { get; set; }
+
     }
 }

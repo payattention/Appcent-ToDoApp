@@ -11,7 +11,9 @@ namespace ToDoApp.Repository
 {
     public interface IToDoCouchbaseInstruction
     {
-        Task<ResponseBase<InsertToDoResEntityModel>> Insert(InsertToDoReqEntityModel request);
+        Task<ResponseBase<InsertToDoResEntityModel>> InsertToDo(InsertToDoReqEntityModel request);
+        Task<ResponseBase<DeleteToDoResEntityModel>> DeleteToDo(DeleteToDoReqEntityModel request);
+        Task<ResponseBase<UpdateToDoResEntityModel>> UpdateToDo(UpdateToDoReqEntityModel request);
         Task<ResponseBase<GetAllSectionDetailToDoResEntityModel>> GetSectionsWithDetail(GetAllSectionDetailToDoReqEntityModel request);
     }
 }

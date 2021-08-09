@@ -11,5 +11,7 @@ namespace ToDoApp.ApplicationService.Communicator.ToDo
     public interface IToDoCommunicator
     {
         Task<ResponseBase<InsertToDoResponseModel>> InsertToDo(InsertToDoRequestModel request);
+        Task<ResponseBase<DeleteToDoResponseModel>> DeleteToDo(DeleteToDoRequestModel request);
+        Task<ResponseBase<UpdateToDoResponseModel>> UpdateToDo(UpdateToDoRequestModel request);
     }
 }

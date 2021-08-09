@@ -13,11 +13,11 @@ using ToDoApp.ApplicationService.Communicator.SectionTodo.Model;
 
 namespace ToDoApp.ApplicationService.Handler.Query
 {
-    public class GetSectionToDoCommandHandler : IRequestHandler<GetSectionToDoQuery, ResponseBase<GetSectionToDoQueryResult>>
+    public class GetSectionToDoQueryHandler : IRequestHandler<GetSectionToDoQuery, ResponseBase<GetSectionToDoQueryResult>>
     {
         private readonly ISectionToDoCommunicator _sectionToDoCommunicator;
 
-        public GetSectionToDoCommandHandler(ISectionToDoCommunicator sectionToDoCommunicator)
+        public GetSectionToDoQueryHandler(ISectionToDoCommunicator sectionToDoCommunicator)
         {
             _sectionToDoCommunicator = sectionToDoCommunicator;
 
@@ -31,8 +31,13 @@ namespace ToDoApp.ApplicationService.Handler.Query
 
             var response = new GetSectionToDoQueryResult()
             {
-                 SectionList = GetSections.Data.SectionNames
+                 SectionList = new List<SectionModel>()
             };
+
+            var tempList = GetSections.Data.SectionInfos.Select(x => new SectionModel()
+            {  SectionId = x.SectionId,  SectionName = x.SectionName}).ToList();
+
+            response.SectionList = tempList;
 
             return new ResponseBase<GetSectionToDoQueryResult>
             {

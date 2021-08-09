@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ToDoApp.ApiContract.Contracts;
 
 namespace ToDoApp.Domain.SectionToDoModels
 {
-    public class GetSectionToDoResEntityModel 
+    public class UpdateSectionToDoResEntityModel
     {
-        public IEnumerable<SectionEntityModel> SectionList { get; set; }
+        public UpdatedSectionEntityModel Section { get; set; }
     }
+    
 }

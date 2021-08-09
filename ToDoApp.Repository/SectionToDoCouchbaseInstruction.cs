@@ -32,9 +32,32 @@ namespace ToDoApp.Repository
             };
         }
 
+        public async Task<ResponseBase<UpdateSectionToDoResEntityModel>> UpdateSection(UpdateSectionToDoReqEntityModel request)
+        {
+
+            var res = await _bucket.UpsertAsync(request.SectionId, new
+            {
+                sectionName = request.NewName,
+                userName = request.UserName
+            });
+
+            var response = new UpdateSectionToDoResEntityModel() 
+            { 
+                 Section = new UpdatedSectionEntityModel()
+            };
+
+            response.Section.SectionName = request.NewName;
+
+            return new ResponseBase<UpdateSectionToDoResEntityModel>
+            {
+                Data = response,
+                Success = res.Success
+            };
+        }
+
         public async Task<ResponseBase<GetSectionToDoResEntityModel>> GetSections(GetSectionToDoReqEntityModel request)
         {
-            var n1ql = @"select s.* from SectionToDoApp s where s.userName =$userName";
+            var n1ql = @"select s.*, META(s).id  from SectionToDoApp s where s.userName =$userName";
             var query = QueryRequest.Create(n1ql).AddNamedParameter("$userName", request.UserName);
             query.ScanConsistency(ScanConsistency.RequestPlus);
 

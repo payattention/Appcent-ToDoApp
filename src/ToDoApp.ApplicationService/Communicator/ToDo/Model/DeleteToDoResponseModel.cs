@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.ApiContract.Contracts;
 
-namespace ToDoApp.Domain.SectionToDoModels
+namespace ToDoApp.ApplicationService.Communicator.ToDo.Model
 {
-    public class GetSectionToDoResEntityModel 
+    public class DeleteToDoResponseModel : ResponseBase
     {
-        public IEnumerable<SectionEntityModel> SectionList { get; set; }
     }
 }

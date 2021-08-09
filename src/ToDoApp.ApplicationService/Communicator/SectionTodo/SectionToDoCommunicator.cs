@@ -44,10 +44,10 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
             var response = new GetSectionToDoResponseModel();
 
             var sectionList = GetSectionsToDoResponse.Data.SectionList
-           .Select(x => new SectionModel() { SectionName = x.sectionName })
+           .Select(x => new SectionModel() { SectionName = x.sectionName ,  SectionId = x.Id })
            .ToList();
 
-            response.SectionNames = sectionList;
+            response.SectionInfos = sectionList;
 
             return new ResponseBase<GetSectionToDoResponseModel>
             {
@@ -76,8 +76,8 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
                     Id = x.Id,
                     SectionName = x.SectionName,
                     ToDo = x.ToDo,
-                    ToDoPrimacy = x.ToDoPrimacy,
-                    ToDoState = x.ToDoState
+                    ToDoPrimacy = (ToDoPrimacy)x.ToDoPrimacy,
+                    ToDoState = (ToDoState)x.ToDoState
                 });
 
                 var SectionDetail = new SectionDetailModel()
@@ -98,5 +98,30 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
                 Success = GetSectionsToDoResponse.Success
             };
         }
+
+        public async Task<ResponseBase<UpdateSectionToDoResponseModel>> UpdateSection(UpdateSectionToDoRequestModel request)
+        {
+            var UpdateSectionToDoResponse = await _sectionToDoCouchbaseInstruction.UpdateSection(new UpdateSectionToDoReqEntityModel()
+            {
+                SectionId = request.SectionId,
+                UserName = request.UserName,
+                NewName = request.NewName
+            });
+
+            var response = new UpdateSectionToDoResponseModel()
+            { 
+                Section = new SectionCommunicatorModel()
+            };
+
+            response.Section.SectionName = UpdateSectionToDoResponse.Data.Section.SectionName;
+
+            return new ResponseBase<UpdateSectionToDoResponseModel>
+            {
+                Data = response,
+                Success = UpdateSectionToDoResponse.Success
+            };
+
+            
+    }
     }
 }

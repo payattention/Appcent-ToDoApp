@@ -12,6 +12,8 @@ namespace ToDoApp.Repository
     {
         Task<ResponseBase<InsertSectionToDoResEntityModel>> InsertSection(InsertSectionToDoReqEntityModel request);
 
+        Task<ResponseBase<UpdateSectionToDoResEntityModel>> UpdateSection(UpdateSectionToDoReqEntityModel request);
+
         Task<ResponseBase<GetSectionToDoResEntityModel>> GetSections(GetSectionToDoReqEntityModel request);
     }
 }

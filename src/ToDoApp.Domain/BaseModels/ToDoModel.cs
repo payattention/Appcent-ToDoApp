@@ -8,9 +8,9 @@ namespace ToDoApp.Domain.BaseModels
 {
     public class ToDoModel
     {
-        public string Name { get; set; }
-        public int TaskId { get; set; }
-        public int MainTaskId { get; set; }
+        public string ToDo { get; set; }
+        public string SectionName { get; set; }
+        public string Id { get; set; }
         public ToDoState ToDoState { get; set; }
         public ToDoPrimacy ToDoPrimacy { get; set; }
         public DateTime CreateDate { get; set; }
