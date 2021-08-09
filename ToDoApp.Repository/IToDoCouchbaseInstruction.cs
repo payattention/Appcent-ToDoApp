@@ -15,5 +15,8 @@ namespace ToDoApp.Repository
         Task<ResponseBase<DeleteToDoResEntityModel>> DeleteToDo(DeleteToDoReqEntityModel request);
         Task<ResponseBase<UpdateToDoResEntityModel>> UpdateToDo(UpdateToDoReqEntityModel request);
         Task<ResponseBase<GetAllSectionDetailToDoResEntityModel>> GetSectionsWithDetail(GetAllSectionDetailToDoReqEntityModel request);
+        Task<ResponseBase<List<ToDoIdList>>> SelectToDos(string UserName, string SectionName);
+        Task<ResponseBase<WhenSectionDiesToDosDieAlsoResponse>> DeleteToDo(WhenSectionDiesToDosDieAlsoRequest request);
+        Task<ResponseBase<GetSectionToDoResEntityModel>> GetSections(GetSectionToDoReqEntityModel request);
     }
 }

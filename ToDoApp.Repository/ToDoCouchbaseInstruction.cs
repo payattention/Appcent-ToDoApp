@@ -15,15 +15,10 @@ namespace ToDoApp.Repository
     public class ToDoCouchbaseInstruction : IToDoCouchbaseInstruction
     {
         private readonly IBucket _bucket;
-        private readonly IBucket _bucketSection;
 
-        private readonly ISectionToDoCouchbaseInstruction _sectionToDoCouchbaseInstruction;
-
-        public ToDoCouchbaseInstruction(IBucketProvider bucketProvider, IBucketProvider bucketProviderSection, ISectionToDoCouchbaseInstruction sectionToDoCouchbaseInstruction)
+        public ToDoCouchbaseInstruction(IBucketProvider bucketProvider)
         {
             _bucket = bucketProvider.GetBucket("ToDoApp"); // Confige atarsın sonra.
-            _bucketSection = bucketProviderSection.GetBucket("SectionToDoApp");
-            _sectionToDoCouchbaseInstruction = sectionToDoCouchbaseInstruction;
         }
 
         public async Task<ResponseBase<InsertToDoResEntityModel>> InsertToDo(InsertToDoReqEntityModel request)
@@ -200,7 +195,7 @@ namespace ToDoApp.Repository
                 UserName = request.UserName
             };
 
-            var sections = _sectionToDoCouchbaseInstruction.GetSections(innerRequest);
+            var sections = GetSections(innerRequest);
 
             var sectionList = sections.Result.Data.SectionList
             .Select(x => new SectionModel() { SectionName = x.sectionName })
@@ -243,6 +238,76 @@ namespace ToDoApp.Repository
             };
 
 
+        }
+
+        public async Task<ResponseBase<WhenSectionDiesToDosDieAlsoResponse>> DeleteToDo(WhenSectionDiesToDosDieAlsoRequest request)
+        {
+
+            var response = new ResponseBase<WhenSectionDiesToDosDieAlsoResponse>();
+
+            foreach (var item in request.Id)
+            {
+                var result = await _bucket.RemoveAsync(item);
+
+                if (result.Success)
+                {
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Success = false;
+                }
+            }
+           
+
+            return new ResponseBase<WhenSectionDiesToDosDieAlsoResponse>
+            {
+                Success = response.Success
+            };
+        }
+
+        public async Task<ResponseBase<List<ToDoIdList>>> SelectToDos(string UserName, string SectionName)
+        {
+            var response = new ResponseBase<List<ToDoIdList>>();
+
+            var n1ql = @"select META(s).id  from ToDoApp s where s.userName =$userName and s.sectionName =$sectionName";
+            var query = QueryRequest.Create(n1ql).AddNamedParameter("$userName", UserName).AddNamedParameter("$sectionName", SectionName);
+            query.ScanConsistency(ScanConsistency.RequestPlus);
+
+            var result = await _bucket.QueryAsync<ToDoIdList>(query);
+
+            if (result.Success)
+            {
+                response.Data = result.Rows;
+                response.Success = result.Success;
+
+                return response;
+            }
+            else
+            {
+                throw new Exception("Can't find ToDos'id.");
+            }
+           
+        }
+
+        public async Task<ResponseBase<GetSectionToDoResEntityModel>> GetSections(GetSectionToDoReqEntityModel request)
+        {
+            var n1ql = @"select s.*, META(s).id  from SectionToDoApp s where s.userName =$userName";
+            var query = QueryRequest.Create(n1ql).AddNamedParameter("$userName", request.UserName);
+            query.ScanConsistency(ScanConsistency.RequestPlus);
+
+            var result = await _bucket.QueryAsync<SectionEntityModel>(query);
+
+            var response = new GetSectionToDoResEntityModel()
+            {
+                SectionList = result.Rows
+            };
+
+            return new ResponseBase<GetSectionToDoResEntityModel>
+            {
+                Data = response,
+                Success = result.Success
+            };
         }
 
         public UpdateToDoResEntityModel MatchToDoModel(string id, string sectionName, string toDo, Domain.BaseModels.ToDoState toDoState, Domain.BaseModels.ToDoPrimacy toDoPrimacy)

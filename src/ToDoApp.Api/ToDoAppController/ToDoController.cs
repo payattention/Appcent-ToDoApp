@@ -51,6 +51,13 @@ namespace ToDoApp.Api.ToDoAppController
             return Ok(result);
         }
 
+        [HttpDelete("deleteSectionToDo")]
+        public async Task<IActionResult> DeleteSectionToDo(DeleteSectionToDoCommand request)
+        {
+            var result = await _mediator.Send(request);
+            return Ok(result);
+        }
+
         [HttpPost("updateSectionToDo")]
         public async Task<IActionResult> updateSectionToDo(UpdateSectionToDoCommand request)
         {

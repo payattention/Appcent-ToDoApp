@@ -8,16 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.ApiContract.Contracts;
 using ToDoApp.Domain.SectionToDoModels;
+using ToDoApp.Domain.ToDoAppModels;
 
 namespace ToDoApp.Repository
 {
     public class SectionToDoCouchbaseInstruction : ISectionToDoCouchbaseInstruction
     {
         private readonly IBucket _bucket;
+        private readonly IToDoCouchbaseInstruction _toDoInstruction;
 
-        public SectionToDoCouchbaseInstruction(IBucketProvider bucketProvider)
+        public SectionToDoCouchbaseInstruction(IBucketProvider bucketProvider, IToDoCouchbaseInstruction toDoInstruction)
         {
             _bucket = bucketProvider.GetBucket("SectionToDoApp"); // Confige atarsın sonra.
+            _toDoInstruction = toDoInstruction;
         }
 
         public async Task<ResponseBase<InsertSectionToDoResEntityModel>> InsertSection(InsertSectionToDoReqEntityModel request)
@@ -29,6 +32,44 @@ namespace ToDoApp.Repository
             return new ResponseBase<InsertSectionToDoResEntityModel>
             {
                 Success = result.Success
+            };
+        }
+
+        public async Task<ResponseBase<DeleteSectionToDoResEntityModel>> DeleteSection(DeleteSectionToDoReqEntityModel request)
+        {
+            var Ids = new List<string>();
+            var response = new ResponseBase<DeleteSectionToDoResEntityModel>();
+
+            //Getting ToDoIds from which deleting Section.
+            var ToDoIds = await _toDoInstruction.SelectToDos(request.UserName, request.SectionName);
+
+            foreach (var item in ToDoIds.Data)
+            {
+                Ids.Add(item.Id.ToString());
+            }
+
+            //Delete them with DeleteToDo.
+            var AllDeleteToDo = await _toDoInstruction.DeleteToDo(new WhenSectionDiesToDosDieAlsoRequest()
+            { 
+                Id = Ids
+            });
+
+            //Don't forget delete the section. :)
+            var result = await _bucket.RemoveAsync(request.SectionId);
+
+            if (ToDoIds.Success && AllDeleteToDo.Success && result.Success)
+            {
+                response.Success = true;
+            }
+            else
+            {
+                throw new Exception("Something went wrong!");
+            }
+
+
+            return new ResponseBase<DeleteSectionToDoResEntityModel>
+            {
+                Success = response.Success
             };
         }
 
@@ -55,24 +96,6 @@ namespace ToDoApp.Repository
             };
         }
 
-        public async Task<ResponseBase<GetSectionToDoResEntityModel>> GetSections(GetSectionToDoReqEntityModel request)
-        {
-            var n1ql = @"select s.*, META(s).id  from SectionToDoApp s where s.userName =$userName";
-            var query = QueryRequest.Create(n1ql).AddNamedParameter("$userName", request.UserName);
-            query.ScanConsistency(ScanConsistency.RequestPlus);
-
-            var result = await _bucket.QueryAsync<SectionEntityModel>(query);
-
-            var response = new GetSectionToDoResEntityModel()
-            {
-                 SectionList = result.Rows
-            };
-
-            return new ResponseBase<GetSectionToDoResEntityModel>
-            {
-                Data = response,
-                Success = result.Success
-            };
-        }
+        
     }
 }

@@ -57,8 +57,8 @@ namespace ToDoApp.Api
             services.AddMediatR(assembly);
 
             services.AddScoped<IToDoCouchbaseInstruction, ToDoCouchbaseInstruction>();
-            services.AddScoped<IToDoCommunicator, ToDoCommunicator>();
             services.AddScoped<ISectionToDoCouchbaseInstruction, SectionToDoCouchbaseInstruction>();
+            services.AddScoped<IToDoCommunicator, ToDoCommunicator>();
             services.AddScoped<ISectionToDoCommunicator, SectionToDoCommunicator>();
 
         }

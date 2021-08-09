@@ -14,6 +14,7 @@ namespace ToDoApp.Repository
 
         Task<ResponseBase<UpdateSectionToDoResEntityModel>> UpdateSection(UpdateSectionToDoReqEntityModel request);
 
-        Task<ResponseBase<GetSectionToDoResEntityModel>> GetSections(GetSectionToDoReqEntityModel request);
+        Task<ResponseBase<DeleteSectionToDoResEntityModel>> DeleteSection(DeleteSectionToDoReqEntityModel request);
+
     }
 }

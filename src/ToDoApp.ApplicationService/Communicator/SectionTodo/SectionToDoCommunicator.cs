@@ -34,9 +34,49 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
             };
         }
 
+        public async Task<ResponseBase<DeleteSectionToDoResponseModel>> DeleteSection(DeleteSectionToDoRequestModel request)
+        {
+            var DeleteSectionToDoResponse = await _sectionToDoCouchbaseInstruction.DeleteSection(new DeleteSectionToDoReqEntityModel()
+            {
+                SectionId = request.SectionId,
+                UserName = request.UserName,
+                SectionName = request.SectionName
+            });
+
+            return new ResponseBase<DeleteSectionToDoResponseModel>
+            {
+                Success = DeleteSectionToDoResponse.Success
+            };
+        }
+
+        public async Task<ResponseBase<UpdateSectionToDoResponseModel>> UpdateSection(UpdateSectionToDoRequestModel request)
+        {
+            var UpdateSectionToDoResponse = await _sectionToDoCouchbaseInstruction.UpdateSection(new UpdateSectionToDoReqEntityModel()
+            {
+                SectionId = request.SectionId,
+                UserName = request.UserName,
+                NewName = request.NewName
+            });
+
+            var response = new UpdateSectionToDoResponseModel()
+            {
+                Section = new SectionCommunicatorModel()
+            };
+
+            response.Section.SectionName = UpdateSectionToDoResponse.Data.Section.SectionName;
+
+            return new ResponseBase<UpdateSectionToDoResponseModel>
+            {
+                Data = response,
+                Success = UpdateSectionToDoResponse.Success
+            };
+
+
+        }
+
         public async Task<ResponseBase<GetSectionToDoResponseModel>> GetSections(GetSectionToDoRequestModel request)
         {
-            var GetSectionsToDoResponse = await _sectionToDoCouchbaseInstruction.GetSections(new GetSectionToDoReqEntityModel()
+            var GetSectionsToDoResponse = await _toDoCouchbaseInstruction.GetSections(new GetSectionToDoReqEntityModel()
             {
                 UserName = request.UserName
             });
@@ -99,29 +139,6 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
             };
         }
 
-        public async Task<ResponseBase<UpdateSectionToDoResponseModel>> UpdateSection(UpdateSectionToDoRequestModel request)
-        {
-            var UpdateSectionToDoResponse = await _sectionToDoCouchbaseInstruction.UpdateSection(new UpdateSectionToDoReqEntityModel()
-            {
-                SectionId = request.SectionId,
-                UserName = request.UserName,
-                NewName = request.NewName
-            });
-
-            var response = new UpdateSectionToDoResponseModel()
-            { 
-                Section = new SectionCommunicatorModel()
-            };
-
-            response.Section.SectionName = UpdateSectionToDoResponse.Data.Section.SectionName;
-
-            return new ResponseBase<UpdateSectionToDoResponseModel>
-            {
-                Data = response,
-                Success = UpdateSectionToDoResponse.Success
-            };
-
-            
-    }
+        
     }
 }

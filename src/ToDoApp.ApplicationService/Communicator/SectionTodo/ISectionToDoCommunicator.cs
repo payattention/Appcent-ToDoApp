@@ -8,6 +8,7 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
     {
         Task<ResponseBase<InsertSectionToDoResponseModel>> InsertSection(InsertSectionToDoRequestModel request);
         Task<ResponseBase<UpdateSectionToDoResponseModel>> UpdateSection(UpdateSectionToDoRequestModel request);
+        Task<ResponseBase<DeleteSectionToDoResponseModel>> DeleteSection(DeleteSectionToDoRequestModel request);
         Task<ResponseBase<GetSectionToDoResponseModel>> GetSections(GetSectionToDoRequestModel request);
         Task<ResponseBase<GetAllSectionToDoResponseModel>> GetSectionsWithDetails(GetAllSectionToDoRequestModel request);
     }
