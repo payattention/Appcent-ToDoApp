@@ -9,6 +9,6 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo.Model
 {
     public class GetSectionToDoResponseModel : ResponseBase
     {
-        public IEnumerable<SectionModel> SectionNames { get; set; }
+        public IEnumerable<SectionModel> SectionInfos { get; set; }
     }
 }

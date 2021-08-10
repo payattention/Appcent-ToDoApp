@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using MediatR;
+using System.ComponentModel.DataAnnotations;
+using ToDoApp.ApiContract.Contracts;
+using ToDoApp.ApiContract.Response.Command.ToDoCommandsResult;
 
 namespace ToDoApp.ApiContract.Request.Command.ToDoCommands
 {
-    public class DeleteToDoCommand
+    public class DeleteToDoCommand : IRequest<ResponseBase<DeleteToDoCommandResult>>
     {
         [Required]
-        public int TodoId { get; set; }
-        [Required]
-        public string UserName { get; set; }
+        public string TodoId { get; set; }
+
     }
 }

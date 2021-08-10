@@ -7,7 +7,7 @@ using ToDoApp.ApiContract.Contracts;
 
 namespace ToDoApp.Domain.SectionToDoModels
 {
-    public class GetSectionToDoResEntityModel : ResponseBase
+    public class GetSectionToDoResEntityModel 
     {
         public IEnumerable<SectionEntityModel> SectionList { get; set; }
     }

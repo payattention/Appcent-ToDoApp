@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDoApp.ApiContract.Contracts;
+using ToDoApp.Domain.BaseModels;
 
 namespace ToDoApp.Domain.ToDoAppModels
 {
