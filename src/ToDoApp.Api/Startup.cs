@@ -16,6 +16,8 @@ using ToDoApp.ApplicationService.Communicator.ToDo;
 using ToDoApp.Repository;
 using ToDoApp.ApiContract.Contracts;
 using ToDoApp.ApplicationService.Communicator.SectionTodo;
+using ToDoApp.Domain.BaseModels;
+using ToDoApp.ApplicationService.Communicator.UserToDo;
 
 namespace ToDoApp.Api
 {
@@ -39,6 +41,8 @@ namespace ToDoApp.Api
             services.AddHttpClient();
             services.AddOptions();
             services.Configure<CouchbaseSettingsModel>(Configuration.GetSection("Couchbase"));
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettingsToken>(appSettingsSection);
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
             //ClusterHelper.Initialize(new ClientConfiguration
             //{
@@ -56,10 +60,13 @@ namespace ToDoApp.Api
             var assembly = AppDomain.CurrentDomain.Load("ToDoApp.ApplicationService");
             services.AddMediatR(assembly);
 
-            services.AddScoped<IToDoCouchbaseInstruction, ToDoCouchbaseInstruction>();
-            services.AddScoped<ISectionToDoCouchbaseInstruction, SectionToDoCouchbaseInstruction>();
+            services.AddScoped<IToDoCouchbaseRepository, ToDoCouchbaseRepository>();
+            services.AddScoped<ISectionToDoCouchbaseRepository, SectionToDoCouchbaseRepository>();
+            services.AddScoped<IUserCouchbaseRepository, UserCouchbaseRepository>();
+            
             services.AddScoped<IToDoCommunicator, ToDoCommunicator>();
             services.AddScoped<ISectionToDoCommunicator, SectionToDoCommunicator>();
+            services.AddScoped<IUserToDoCommunicator, UserToDoCommunicator>();
 
         }
 

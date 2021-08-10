@@ -1,10 +1,7 @@
 ﻿using Couchbase.Core;
 using Couchbase.Extensions.DependencyInjection;
-using Couchbase.N1QL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.ApiContract.Contracts;
 using ToDoApp.Domain.SectionToDoModels;
@@ -12,12 +9,12 @@ using ToDoApp.Domain.ToDoAppModels;
 
 namespace ToDoApp.Repository
 {
-    public class SectionToDoCouchbaseInstruction : ISectionToDoCouchbaseInstruction
+    public class SectionToDoCouchbaseRepository : ISectionToDoCouchbaseRepository
     {
         private readonly IBucket _bucket;
-        private readonly IToDoCouchbaseInstruction _toDoInstruction;
+        private readonly IToDoCouchbaseRepository _toDoInstruction;
 
-        public SectionToDoCouchbaseInstruction(IBucketProvider bucketProvider, IToDoCouchbaseInstruction toDoInstruction)
+        public SectionToDoCouchbaseRepository(IBucketProvider bucketProvider, IToDoCouchbaseRepository toDoInstruction)
         {
             _bucket = bucketProvider.GetBucket("SectionToDoApp"); // Confige atarsın sonra.
             _toDoInstruction = toDoInstruction;

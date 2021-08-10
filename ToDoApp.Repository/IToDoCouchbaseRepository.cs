@@ -9,7 +9,7 @@ using ToDoApp.Domain.ToDoAppModels;
 
 namespace ToDoApp.Repository
 {
-    public interface IToDoCouchbaseInstruction
+    public interface IToDoCouchbaseRepository
     {
         Task<ResponseBase<InsertToDoResEntityModel>> InsertToDo(InsertToDoReqEntityModel request);
         Task<ResponseBase<DeleteToDoResEntityModel>> DeleteToDo(DeleteToDoReqEntityModel request);

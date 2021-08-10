@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations;
 using ToDoApp.ApiContract.Contracts;
-using ToDoApp.ApiContract.Response.Command.SectionCommands;
+using ToDoApp.ApiContract.Response.Command.SectionCommandsResult;
 
 namespace ToDoApp.ApiContract.Request.Command.SectionCommands
 {

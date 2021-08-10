@@ -8,7 +8,7 @@ using ToDoApp.Domain.SectionToDoModels;
 
 namespace ToDoApp.Repository
 {
-    public interface ISectionToDoCouchbaseInstruction
+    public interface ISectionToDoCouchbaseRepository
     {
         Task<ResponseBase<InsertSectionToDoResEntityModel>> InsertSection(InsertSectionToDoReqEntityModel request);
 

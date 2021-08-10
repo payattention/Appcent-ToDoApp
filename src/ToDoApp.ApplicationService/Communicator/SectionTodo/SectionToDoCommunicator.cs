@@ -12,9 +12,9 @@ namespace ToDoApp.ApplicationService.Communicator.SectionTodo
 {
     public class SectionToDoCommunicator : ISectionToDoCommunicator
     {
-        private readonly ISectionToDoCouchbaseInstruction _sectionToDoCouchbaseInstruction;
-        private readonly IToDoCouchbaseInstruction _toDoCouchbaseInstruction;
-        public SectionToDoCommunicator(ISectionToDoCouchbaseInstruction sectionToDoCouchbaseInstruction, IToDoCouchbaseInstruction toDoCouchbaseInstruction)
+        private readonly ISectionToDoCouchbaseRepository _sectionToDoCouchbaseInstruction;
+        private readonly IToDoCouchbaseRepository _toDoCouchbaseInstruction;
+        public SectionToDoCommunicator(ISectionToDoCouchbaseRepository sectionToDoCouchbaseInstruction, IToDoCouchbaseRepository toDoCouchbaseInstruction)
         {
             _sectionToDoCouchbaseInstruction = sectionToDoCouchbaseInstruction;
             _toDoCouchbaseInstruction = toDoCouchbaseInstruction;

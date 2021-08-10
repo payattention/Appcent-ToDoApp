@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ToDoApp.ApiContract.Contracts;
 using ToDoApp.ApiContract.Request.Command.SectionCommands;
-using ToDoApp.ApiContract.Response.Command.SectionCommands;
+using ToDoApp.ApiContract.Response.Command.SectionCommandsResult;
 using ToDoApp.ApplicationService.Communicator.SectionTodo;
 using ToDoApp.ApplicationService.Communicator.SectionTodo.Model;
 

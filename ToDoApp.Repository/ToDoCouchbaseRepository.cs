@@ -12,11 +12,11 @@ using ToDoApp.Domain.ToDoAppModels;
 
 namespace ToDoApp.Repository
 {
-    public class ToDoCouchbaseInstruction : IToDoCouchbaseInstruction
+    public class ToDoCouchbaseRepository : IToDoCouchbaseRepository
     {
         private readonly IBucket _bucket;
 
-        public ToDoCouchbaseInstruction(IBucketProvider bucketProvider)
+        public ToDoCouchbaseRepository(IBucketProvider bucketProvider)
         {
             _bucket = bucketProvider.GetBucket("ToDoApp"); // Confige atarsın sonra.
         }
