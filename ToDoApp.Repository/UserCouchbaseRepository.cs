@@ -23,7 +23,6 @@ namespace ToDoApp.Repository
     {
         private readonly IBucket _bucket;
         private readonly IConfiguration _configuration;
-        private readonly AppSettingsToken _appSettings;
 
         public UserCouchbaseRepository(IBucketProvider bucketProvider, IConfiguration configuration)
         {
@@ -40,25 +39,29 @@ namespace ToDoApp.Repository
             {
                 throw new Exception($"Username '{username}' already exists");
             }
-
-            var result = CreateUser(username, request.Password, request.Email);
-
-            var token = CreateToken(username, request.Email);
-
-            if (result.Success)
-            {
-                response.Data = new RegisterToDoResEntityModel()
-                {
-                    Token = token,
-                    isRegisterCompleted = true
-                };
-                response.Success = true;
-                return response;
-            }
             else
             {
-                throw new Exception("Register failed.");
+                var result = await CreateUser(username, request.Password, request.Email);
+
+                var token = CreateToken(username, request.Email);
+
+                if (result.Success)
+                {
+                    response.Data = new RegisterToDoResEntityModel()
+                    {
+                        Token = token,
+                        isRegisterCompleted = true
+                    };
+                    response.Success = true;
+                    return response;
+                }
+                else
+                {
+                    throw new Exception("Register failed.");
+                }
             }
+
+            
             
         }
 
@@ -114,7 +117,7 @@ namespace ToDoApp.Repository
             return result;
         }
 
-        public ResponseBase<User> CreateUser(string username, string password, string email)
+        public async Task<ResponseBase<User>> CreateUser(string username, string password, string email)
         {
             var user = new User
             {
@@ -127,7 +130,7 @@ namespace ToDoApp.Repository
             response.Data = user;
             try
             {
-                var result =  _bucket.Insert($"user::{username}", user);
+                var result = await _bucket.InsertAsync($"user::{username}", user);
                 response.Success = result.Success;
             }
             catch(Exception ex)

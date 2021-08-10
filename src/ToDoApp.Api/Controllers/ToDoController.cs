@@ -1,18 +1,15 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ToDoApp.ApiContract.Contracts;
 using ToDoApp.ApiContract.Request.Command.SectionCommands;
 using ToDoApp.ApiContract.Request.Command.ToDoCommands;
 using ToDoApp.ApiContract.Request.Query;
-using ToDoApp.ApiContract.Response.Command;
 
-namespace ToDoApp.Api.ToDoAppController
+namespace ToDoApp.Api.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("toDo")]
     [ApiController]
     public class ToDoController : ControllerBase
