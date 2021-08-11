@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ToDoApp.Repository\ToDoApp.Repository.csproj" />
     <ProjectReference Include="..\ToDoApp.ApiContract\ToDoApp.ApiContract.csproj" />
+    <ProjectReference Include="..\ToDoApp.Repository\ToDoApp.Repository.csproj" />
   </ItemGroup>
 
 </Project>

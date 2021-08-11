@@ -21,10 +21,10 @@ COPY src/ToDoApp.ApplicationService/. ./src/ToDoApp.ApplicationService/
 COPY src/ToDoApp.Domain/. ./src/ToDoApp.Domain/
 COPY src/ToDoApp.Repository/. ./src/ToDoApp.Repository/
 
-WORKDIR /app/src/ToDoApp.Api
+WORKDIR src/ToDoApp.Api
 RUN dotnet publish -c Release -o out
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/src/ToDoApp.Api/out .
+COPY --from=build /src/ToDoApp.Api/out .
 ENTRYPOINT ["dotnet", "ToDoApp.Api.dll"]
