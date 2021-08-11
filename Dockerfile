@@ -13,6 +13,7 @@ COPY src/ToDoApp.ApiContract/*.csproj ./src/ToDoApp.ApiContract/
 COPY src/ToDoApp.ApplicationService/*.csproj ./src/ToDoApp.ApplicationService/
 COPY src/ToDoApp.Domain/*.csproj ./src/ToDoApp.Domain/
 COPY src/ToDoApp.Repository/*.csproj ./src/ToDoApp.Repository/
+COPY ToDoApp.Tests/*.csproj ./ToDoApp.Tests/
 RUN dotnet restore
 
 COPY src/ToDoApp.Api/. ./src/ToDoApp.Api/
@@ -20,6 +21,7 @@ COPY src/ToDoApp.ApiContract/. ./src/ToDoApp.ApiContract/
 COPY src/ToDoApp.ApplicationService/. ./src/ToDoApp.ApplicationService/
 COPY src/ToDoApp.Domain/. ./src/ToDoApp.Domain/
 COPY src/ToDoApp.Repository/. ./src/ToDoApp.Repository/
+COPY ToDoApp.Tests/. ./ToDoApp.Tests/
 
 WORKDIR src/ToDoApp.Api
 RUN dotnet publish -c Release -o out
