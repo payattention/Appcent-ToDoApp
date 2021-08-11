@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using ToDoApp.ApiContract.Request.Command;
 using ToDoApp.ApiContract.Request.Command.UserCommands;
 
-namespace ToDoApp.Api.ToDoAppController
+namespace ToDoApp.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("user")]
     [ApiController]
     public class UserController : ControllerBase
     {

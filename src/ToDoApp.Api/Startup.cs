@@ -18,6 +18,9 @@ using ToDoApp.ApiContract.Contracts;
 using ToDoApp.ApplicationService.Communicator.SectionTodo;
 using ToDoApp.Domain.BaseModels;
 using ToDoApp.ApplicationService.Communicator.UserToDo;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace ToDoApp.Api
 {
@@ -40,22 +43,43 @@ namespace ToDoApp.Api
             services.AddControllers();
             services.AddHttpClient();
             services.AddOptions();
+
             services.Configure<CouchbaseSettingsModel>(Configuration.GetSection("Couchbase"));
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettingsToken>(appSettingsSection);
+
             services.AddCouchbase(Configuration.GetSection("Couchbase"));
-            //ClusterHelper.Initialize(new ClientConfiguration
-            //{
-            //     Servers = new List<Uri> { new Uri ("couchbase://localhost")}
-            //}, new PasswordAuthenticator("Karalar","19190719")); 
 
-            //services.AddCouchbase(client =>
-            //{
-            //    client.Servers = new List<Uri> { new Uri("http://localhost:8091") };
-            //    client.UseSsl = false;
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description =
+            "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
 
-            services.AddSwaggerGen();
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement(){
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });
+            });
 
             var assembly = AppDomain.CurrentDomain.Load("ToDoApp.ApplicationService");
             services.AddMediatR(assembly);
@@ -63,10 +87,31 @@ namespace ToDoApp.Api
             services.AddScoped<IToDoCouchbaseRepository, ToDoCouchbaseRepository>();
             services.AddScoped<ISectionToDoCouchbaseRepository, SectionToDoCouchbaseRepository>();
             services.AddScoped<IUserCouchbaseRepository, UserCouchbaseRepository>();
-            
+
             services.AddScoped<IToDoCommunicator, ToDoCommunicator>();
             services.AddScoped<ISectionToDoCommunicator, SectionToDoCommunicator>();
             services.AddScoped<IUserToDoCommunicator, UserToDoCommunicator>();
+
+            services.AddAuthentication(SchemeOptions => 
+            {
+                SchemeOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                SchemeOptions.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                SchemeOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            
+            }).AddJwtBearer(
+            options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Secret").Value)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            }
+      );
 
         }
 
@@ -80,6 +125,9 @@ namespace ToDoApp.Api
 
             app.UseRouting();
             app.UseSwagger();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
 
             app.UseSwaggerUI(c =>
             {
