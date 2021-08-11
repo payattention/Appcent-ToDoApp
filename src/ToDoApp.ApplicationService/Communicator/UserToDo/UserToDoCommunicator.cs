@@ -13,11 +13,9 @@ namespace ToDoApp.ApplicationService.Communicator.UserToDo
 {
     public class UserToDoCommunicator : IUserToDoCommunicator
     {
-        public readonly IConfiguration _configValue;
         public readonly IUserCouchbaseRepository _userCouchbaseInstruction;
-        public UserToDoCommunicator(IConfiguration configValue, IUserCouchbaseRepository userCouchbaseInstruction)
+        public UserToDoCommunicator(IUserCouchbaseRepository userCouchbaseInstruction)
         {
-            _configValue = configValue;
             _userCouchbaseInstruction = userCouchbaseInstruction;
         }
 
