@@ -23,8 +23,28 @@ namespace ToDoApp.Tests
         public void SetUp()
         {
             _iUserCouchbaseRepository = new Mock<IUserCouchbaseRepository>();
-            _userToDoCommunicator = new UserToDoCommunicator(_iUserCouchbaseRepository.Object);
 
+
+            _iUserCouchbaseRepository
+                .Setup(s => s.Login(It.IsAny<LoginToDoReqEntityModel>()))
+                .ReturnsAsync(
+                (LoginToDoReqEntityModel s) =>
+                  {
+
+                      return new ResponseBase<LoginToDoResEntityModel>()
+                      {
+                          Success = true,
+                          Data = new LoginToDoResEntityModel()
+                          {
+                              Token = "123"
+                          },
+                          Message = "asd",
+                          MessageCode = "11",
+                          UserMessage = "trty"
+                      };
+                  });
+
+            _userToDoCommunicator = new UserToDoCommunicator(_iUserCouchbaseRepository.Object);
         }
 
         [Test]
@@ -39,21 +59,7 @@ namespace ToDoApp.Tests
             //Mock<IUserCouchbaseRepository> _userCouchbaseRepo = new Mock<IUserCouchbaseRepository>();
             //UserToDoCommunicator _userToDoCommunicator = new UserToDoCommunicator(_userCouchbaseRepo.Object);
 
-             _iUserCouchbaseRepository.Setup(s => s.Login(new LoginToDoReqEntityModel()
-            {
-                UserName = "Erkut",
-                Password = "test123"
-            })).ReturnsAsync(new ResponseBase<LoginToDoResEntityModel>()
-            {
-                Success = true,
-                Data = new LoginToDoResEntityModel()
-                {
-                    Token = "123"
-                },
-                Message = "asd",
-                MessageCode = "11",
-                UserMessage = "trty"
-            });
+
             // Act
 
             var LoginResponse = await _userToDoCommunicator.Login(LoginModel);
